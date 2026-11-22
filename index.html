@@ -1,0 +1,929 @@
+<!-- === [PART 2 ここから] GitHub用 index.html にそのまま貼り付け === -->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>マッサージ体験 デジタル整理券</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    /* --- [ブロック1：カラー変数・基本レイアウトCSS] ここから --- */
+    :root {
+      --bg-base: #f4f6f1;
+      --bg-card: rgba(255, 255, 255, 0.94);
+      --primary: #5e7356;
+      --primary-dark: #465840;
+      --primary-soft: #e6ece2;
+      --accent-warm: #d97736;
+      --accent-alert: #c94a38;
+      --text-main: #2c3329;
+      --text-sub: #646e60;
+      --border-line: rgba(94, 115, 86, 0.18);
+      --shadow-soft: 0 12px 32px rgba(44, 51, 41, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--bg-base);
+      background-image: radial-gradient(circle at 15% 10%, rgba(145, 168, 134, 0.18), transparent 45%),
+                        radial-gradient(circle at 85% 90%, rgba(217, 119, 54, 0.08), transparent 45%);
+      color: var(--text-main);
+      min-height: 100vh;
+      line-height: 1.6;
+      padding: 16px 14px 56px;
+    }
+
+    .app-container {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .app-header {
+      text-align: center;
+      padding: 12px 0 20px;
+      position: relative;
+    }
+
+    .app-badge {
+      display: inline-block;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .app-title {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      color: var(--text-main);
+    }
+
+    .card {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-line);
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 16px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    /* --- [ブロック1：カラー変数・基本レイアウトCSS] ここまで --- */
+
+    /* --- [ブロック2：お客様画面・整理券カードCSS] ここから --- */
+    .wait-summary-box {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      background: var(--primary-soft);
+      border-radius: 16px;
+      padding: 14px 10px;
+      margin-bottom: 20px;
+    }
+
+    .wait-summary-item {
+      text-align: center;
+      flex: 1;
+    }
+
+    .wait-summary-item + .wait-summary-item {
+      border-left: 1px solid var(--border-line);
+    }
+
+    .wait-label {
+      font-size: 12px;
+      color: var(--text-sub);
+      font-weight: 700;
+    }
+
+    .wait-value {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans JP', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .wait-unit {
+      font-size: 13px;
+      font-weight: 700;
+      margin-left: 2px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      border: 2px solid var(--border-line);
+      border-radius: 14px;
+      background: #ffffff;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--primary);
+    }
+
+    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 700;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(94, 115, 86, 0.28);
+      transition: transform 0.15s ease, opacity 0.2s;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .ticket-hero {
+      text-align: center;
+      padding: 12px 0 18px;
+      border-bottom: 2px dashed var(--border-line);
+      margin-bottom: 18px;
+    }
+
+    .ticket-caption {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    .ticket-number {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 68px;
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--primary-dark);
+      letter-spacing: 0.04em;
+      margin: 4px 0;
+    }
+
+    .ticket-name {
+      display: inline-block;
+      background: var(--bg-base);
+      padding: 4px 16px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .status-banner {
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .status-waiting {
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+    }
+
+    .status-soon {
+      background: #fff4e5;
+      color: #b85d19;
+      border: 1px solid rgba(217, 119, 54, 0.35);
+    }
+
+    .status-calling {
+      background: #fdecea;
+      color: var(--accent-alert);
+      border: 2px solid var(--accent-alert);
+      animation: pulseAlert 1.6s infinite;
+    }
+
+    @keyframes pulseAlert {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+    }
+
+    .closed-notice {
+      text-align: center;
+      padding: 28px 16px;
+      background: #f8f5f2;
+      border-radius: 18px;
+      border: 1px solid rgba(201, 74, 56, 0.25);
+    }
+
+    .closed-notice h2 {
+      font-size: 18px;
+      color: var(--accent-alert);
+      margin-bottom: 8px;
+    }
+    /* --- [ブロック2：お客様画面・整理券カードCSS] ここまで --- */
+
+    /* --- [ブロック3：スタッフ管理画面・PIN認証CSS] ここから --- */
+    .admin-entry-link {
+      display: block;
+      text-align: center;
+      margin-top: 28px;
+      font-size: 12px;
+      color: var(--text-sub);
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+    }
+
+    .pin-box {
+      text-align: center;
+      padding: 12px 4px;
+    }
+
+    .pin-input {
+      width: 180px;
+      text-align: center;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      padding: 12px;
+      border: 2px solid var(--border-line);
+      border-radius: 14px;
+      margin: 14px auto;
+      display: block;
+    }
+
+    .admin-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .toggle-pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+
+    .pill-open {
+      background: #e1f3e6;
+      color: #1f6e38;
+    }
+
+    .pill-closed {
+      background: #fdecea;
+      color: var(--accent-alert);
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .config-box {
+      background: var(--bg-base);
+      padding: 12px;
+      border-radius: 14px;
+      text-align: center;
+    }
+
+    .stepper-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .btn-step {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border-line);
+      background: #ffffff;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .section-subtitle {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin: 16px 0 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .queue-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-line);
+      border-radius: 14px;
+      margin-bottom: 10px;
+    }
+
+    .queue-item.is-active {
+      border-left: 5px solid var(--accent-warm);
+      background: #fffaf5;
+    }
+
+    .queue-no {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-right: 8px;
+    }
+
+    .btn-sm {
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 4px;
+    }
+
+    .btn-call { background: var(--accent-warm); color: #ffffff; }
+    .btn-done { background: var(--primary); color: #ffffff; }
+    .btn-cancel { background: #eceeed; color: var(--text-sub); }
+    .hidden { display: none !important; }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(44, 51, 41, 0.94);
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+    }
+    .toast-msg.show { opacity: 1; }
+    /* === [新規機能追加エリアCSS] 新しいスタイルはこの真上に貼り付け === */
+    /* --- [ブロック3：スタッフ管理画面・PIN認証CSS] ここまで --- */
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <!-- --- [ブロック4：共通ヘッダーHTML] ここから --- -->
+    <header class="app-header">
+      <span class="app-badge">無料マッサージ体験会</span>
+      <h1 class="app-title">デジタル整理券システム</h1>
+    </header>
+    <!-- --- [ブロック4：共通ヘッダーHTML] ここまで --- -->
+
+    <!-- --- [ブロック5：お客様用画面HTML] ここから --- -->
+    <main id="guestView">
+      <section id="issueSection" class="card">
+        <div class="wait-summary-box">
+          <div class="wait-summary-item">
+            <div class="wait-label">現在の待ち組数</div>
+            <div class="wait-value"><span id="previewAheadCount">-</span><span class="wait-unit">組</span></div>
+          </div>
+          <div class="wait-summary-item">
+            <div class="wait-label">目安の待ち時間</div>
+            <div class="wait-value">約<span id="previewWaitMin">-</span><span class="wait-unit">分</span></div>
+          </div>
+        </div>
+
+        <div id="openFormArea">
+          <div class="form-group">
+            <label class="form-label" for="nicknameInput">お呼び出し用ニックネーム（カタカナ推奨）</label>
+            <input type="text" id="nicknameInput" class="form-input" placeholder="例：ヤマダ / タロウ" maxlength="15">
+          </div>
+          <button id="issueBtn" class="btn-primary" onclick="handleIssueTicket()">整理券を発行する</button>
+        </div>
+
+        <div id="closedNoticeArea" class="closed-notice hidden">
+          <h2>本日の新規受付は終了しました</h2>
+          <p style="font-size:13px; color:var(--text-sub);">たくさんのご来場ありがとうございました。</p>
+        </div>
+      </section>
+
+      <section id="ticketSection" class="card hidden">
+        <div class="ticket-hero">
+          <div class="ticket-caption">あなたの整理券番号</div>
+          <div id="myTicketNo" class="ticket-number">---</div>
+          <div id="myTicketName" class="ticket-name">--- 様</div>
+        </div>
+
+        <div id="myStatusBanner" class="status-banner status-waiting">
+          順番までお待ちください
+        </div>
+
+        <div id="myWaitStats" class="wait-summary-box">
+          <div class="wait-summary-item">
+            <div class="wait-label">あなたの前の待ち人数</div>
+            <div class="wait-value"><span id="myAheadCount">-</span><span class="wait-unit">組</span></div>
+          </div>
+          <div class="wait-summary-item">
+            <div class="wait-label">ご案内まであと</div>
+            <div class="wait-value">約<span id="myWaitMin">-</span><span class="wait-unit">分</span></div>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="background:var(--primary-soft); color:var(--primary-dark); box-shadow:none; font-size:14px; padding:12px;" onclick="refreshStatus(true)">
+          最新の状況に更新する
+        </button>
+        <p style="font-size:12px; color:var(--text-sub); text-align:center; margin-top:12px;">
+          ※画面は15秒ごとに自動更新されます。<br>誤って画面を閉じた場合は、受付のQRコードを再度読み込んでください。
+        </p>
+      </section>
+
+      <button class="admin-entry-link" onclick="switchToAdminLogin()">スタッフ管理画面を開く</button>
+    </main>
+    <!-- --- [ブロック5：お客様用画面HTML] ここまで --- -->
+<!-- === [PART 2 ここまで] この真下に PART 3 を貼り付け === -->
+      <!-- === [PART 3 ここから] PART 2 の真下に貼り付け === -->
+    <!-- --- [ブロック6：スタッフPIN認証・管理画面HTML] ここから --- -->
+    <main id="adminLoginView" class="hidden">
+      <section class="card pin-box">
+        <h2 style="font-size:18px; font-weight:900;">スタッフ管理画面ロック</h2>
+        <p style="font-size:13px; color:var(--text-sub); margin-top:4px;">スタッフ用の4桁PINコードを入力してください</p>
+        <input type="password" id="pinInput" class="pin-input" inputmode="numeric" maxlength="8" placeholder="••••">
+        <button id="pinVerifyBtn" class="btn-primary" onclick="handleVerifyPin()">認証して管理画面を開く</button>
+        <button class="admin-entry-link" onclick="switchToGuestView()">お客様画面に戻る</button>
+      </section>
+    </main>
+
+    <main id="adminView" class="hidden">
+      <section class="card">
+        <div class="admin-bar">
+          <strong style="font-size:16px;">現場コントロール</strong>
+          <button id="receptionToggleBtn" class="toggle-pill pill-open" onclick="handleToggleReception()">受付中（クリックで終了）</button>
+        </div>
+
+        <div class="config-grid">
+          <div class="config-box">
+            <div class="wait-label">施術枠数（ベッド・椅子）</div>
+            <div class="stepper-row">
+              <button class="btn-step" onclick="handleStepConfig('slots', -1)">−</button>
+              <strong id="adminSlotsVal" style="font-size:20px;">1</strong>
+              <button class="btn-step" onclick="handleStepConfig('slots', 1)">＋</button>
+            </div>
+          </div>
+          <div class="config-box">
+            <div class="wait-label">1人あたりの施術時間</div>
+            <div class="stepper-row">
+              <button class="btn-step" onclick="handleStepConfig('duration', -5)">−</button>
+              <strong id="adminDurationVal" style="font-size:20px;">15</strong><span style="font-size:12px;">分</span>
+              <button class="btn-step" onclick="handleStepConfig('duration', 5)">＋</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border-line); padding-top:14px; margin-top:6px;">
+          <div class="wait-label" style="margin-bottom:6px;">代理発券（スマホをお持ちでないお客様用）</div>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="proxyNicknameInput" class="form-input" style="padding:10px 12px; font-size:14px;" placeholder="ニックネーム入力">
+            <button class="btn-primary" style="width:auto; padding:10px 16px; font-size:14px; white-space:nowrap;" onclick="handleProxyIssue()">代理発券</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="section-subtitle">
+          <span>現在対応中・呼び出し中</span>
+          <span id="activeCountBadge">0組</span>
+        </div>
+        <div id="activeListContainer"></div>
+
+        <div class="section-subtitle" style="margin-top:22px;">
+          <span>待機中リスト（順番待ち）</span>
+          <span id="waitingCountBadge">0組</span>
+        </div>
+        <div id="waitingListContainer"></div>
+      </section>
+
+      <button class="admin-entry-link" onclick="switchToGuestView()">お客様画面に戻る</button>
+    </main>
+    <!-- === [新規機能追加エリアHTML] 新しい画面ブロックはこの真上に貼り付け === -->
+    <!-- --- [ブロック6：スタッフPIN認証・管理画面HTML] ここまで --- -->
+  </div>
+
+  <div id="toastMsg" class="toast-msg"></div>
+
+  <script>
+    // --- [ブロック7：API設定・ブラウザ記憶管理JS] ここから ---
+    const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwTuJ3_YlzS0GNsT4gQSZcrlqRv0OClHZfiEYCcaUVzjS5z4ii3fTcJcvo1Q79NZVFp/exec';
+
+    const STORAGE_KEY_DEVICE = 'massage_ticket_device_id';
+    const STORAGE_KEY_TICKET = 'massage_ticket_saved_no';
+    const STORAGE_KEY_PIN = 'massage_ticket_admin_pin';
+
+    let currentConfig = { slots: 1, duration: 15, receptionStatus: 'OPEN' };
+    let isAdminAuthenticated = false;
+    let verifiedPin = '';
+    let autoRefreshTimer = null;
+
+    function getOrCreateDeviceId() {
+      let id = localStorage.getItem(STORAGE_KEY_DEVICE);
+      if (!id) {
+        id = 'dev_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+        localStorage.setItem(STORAGE_KEY_DEVICE, id);
+      }
+      return id;
+    }
+
+    function showToast(msg) {
+      const el = document.getElementById('toastMsg');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(function() {
+        el.classList.remove('show');
+      }, 2600);
+    }
+    // --- [ブロック7：API設定・ブラウザ記憶管理JS] ここまで ---
+
+    // --- [ブロック8：GAS通信（GET / POST）処理JS] ここから ---
+    async function fetchGasGet(paramsObj) {
+      const query = new URLSearchParams(paramsObj).toString();
+      const res = await fetch(GAS_API_URL + '?' + query);
+      return await res.json();
+    }
+
+    async function fetchGasPost(payloadObj) {
+      const res = await fetch(GAS_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payloadObj)
+      });
+      return await res.json();
+    }
+    // --- [ブロック8：GAS通信（GET / POST）処理JS] ここまで ---
+
+    // --- [ブロック9：画面切り替え・状況更新・描画処理JS] ここから ---
+    function switchToAdminLogin() {
+      const savedPin = sessionStorage.getItem(STORAGE_KEY_PIN);
+      if (savedPin) {
+        verifiedPin = savedPin;
+        isAdminAuthenticated = true;
+        showAdminDashboard();
+        return;
+      }
+      document.getElementById('guestView').classList.add('hidden');
+      document.getElementById('adminView').classList.add('hidden');
+      document.getElementById('adminLoginView').classList.remove('hidden');
+    }
+
+    function switchToGuestView() {
+      isAdminAuthenticated = false;
+      document.getElementById('adminLoginView').classList.add('hidden');
+      document.getElementById('adminView').classList.add('hidden');
+      document.getElementById('guestView').classList.remove('hidden');
+      refreshStatus(false);
+    }
+
+    function showAdminDashboard() {
+      document.getElementById('guestView').classList.add('hidden');
+      document.getElementById('adminLoginView').classList.add('hidden');
+      document.getElementById('adminView').classList.remove('hidden');
+      refreshStatus(false);
+    }
+
+    async function handleVerifyPin() {
+      const inputPin = document.getElementById('pinInput').value.trim();
+      if (!inputPin) {
+        showToast('PINコードを入力してください');
+        return;
+      }
+      const btn = document.getElementById('pinVerifyBtn');
+      btn.disabled = true;
+      btn.textContent = '確認中...';
+      try {
+        const res = await fetchGasGet({ action: 'verifyPin', pin: inputPin });
+        if (res.success) {
+          verifiedPin = inputPin;
+          isAdminAuthenticated = true;
+          sessionStorage.setItem(STORAGE_KEY_PIN, inputPin);
+          showToast('スタッフ認証に成功しました');
+          showAdminDashboard();
+        } else {
+          showToast('PINコードが違います');
+        }
+      } catch (e) {
+        showToast('通信エラーが発生しました');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '認証して管理画面を開く';
+      }
+    }
+
+    async function refreshStatus(isManual) {
+      if (GAS_API_URL.indexOf('http') !== 0) return;
+      try {
+        const deviceId = getOrCreateDeviceId();
+        const savedNo = localStorage.getItem(STORAGE_KEY_TICKET) || '';
+        const params = {
+          action: 'status',
+          deviceId: deviceId,
+          ticketNo: savedNo
+        };
+        if (isAdminAuthenticated && verifiedPin) {
+          params.pin = verifiedPin;
+        }
+        const data = await fetchGasGet(params);
+        if (!data.success) return;
+
+        currentConfig = data.config;
+        renderGuestUI(data);
+        if (isAdminAuthenticated) {
+          renderAdminUI(data);
+        }
+        if (isManual) {
+          showToast('最新の状態に更新しました');
+        }
+      } catch (err) {
+        if (isManual) showToast('更新に失敗しました');
+      }
+    }
+
+    function renderGuestUI(data) {
+      const issueSec = document.getElementById('issueSection');
+      const ticketSec = document.getElementById('ticketSection');
+
+      if (data.myTicket) {
+        localStorage.setItem(STORAGE_KEY_TICKET, data.myTicket.ticketNo);
+        issueSec.classList.add('hidden');
+        ticketSec.classList.remove('hidden');
+
+        document.getElementById('myTicketNo').textContent = data.myTicket.ticketNo;
+        document.getElementById('myTicketName').textContent = data.myTicket.nickname + ' 様';
+        document.getElementById('myAheadCount').textContent = data.aheadCount;
+        document.getElementById('myWaitMin').textContent = data.myWaitMinutes;
+
+        const banner = document.getElementById('myStatusBanner');
+        const waitStats = document.getElementById('myWaitStats');
+        banner.className = 'status-banner';
+
+        if (data.myTicket.status === '呼び出し中' || data.myTicket.status === '施術中') {
+          banner.classList.add('status-calling');
+          banner.innerHTML = 'あなたの番です！<br>受付スタッフへこの画面をお見せください';
+          waitStats.classList.add('hidden');
+        } else if (data.aheadCount <= 1) {
+          banner.classList.add('status-soon');
+          banner.textContent = 'まもなく順番です！受付の近くでお待ちください';
+          waitStats.classList.remove('hidden');
+        } else {
+          banner.classList.add('status-waiting');
+          banner.textContent = '順番が近づくと画面が切り替わります';
+          waitStats.classList.remove('hidden');
+        }
+      } else {
+        localStorage.removeItem(STORAGE_KEY_TICKET);
+        ticketSec.classList.add('hidden');
+        issueSec.classList.remove('hidden');
+
+        document.getElementById('previewAheadCount').textContent = data.aheadCount;
+        document.getElementById('previewWaitMin').textContent = data.myWaitMinutes;
+
+        const openArea = document.getElementById('openFormArea');
+        const closedArea = document.getElementById('closedNoticeArea');
+        if (data.config.receptionStatus === 'OPEN') {
+          openArea.classList.remove('hidden');
+          closedArea.classList.add('hidden');
+        } else {
+          openArea.classList.add('hidden');
+          closedArea.classList.remove('hidden');
+        }
+      }
+    }
+    // --- [ブロック9：画面切り替え・状況更新・描画処理JS] ここまで ---
+
+    // --- [ブロック10：発券・スタッフ操作アクションJS] ここから ---
+    async function handleIssueTicket() {
+      const nameInput = document.getElementById('nicknameInput');
+      const nickname = nameInput.value.trim();
+      if (!nickname) {
+        showToast('ニックネームを入力してください');
+        nameInput.focus();
+        return;
+      }
+
+      const btn = document.getElementById('issueBtn');
+      btn.disabled = true;
+      btn.textContent = '発券処理中...';
+
+      try {
+        const deviceId = getOrCreateDeviceId();
+        const res = await fetchGasPost({
+          action: 'issue',
+          nickname: nickname,
+          deviceId: deviceId
+        });
+        if (res.success) {
+          localStorage.setItem(STORAGE_KEY_TICKET, res.ticketNo);
+          nameInput.value = '';
+          showToast('整理券 ' + res.ticketNo + ' 番を発券しました');
+          await refreshStatus(false);
+        } else {
+          showToast(res.message || '発券できませんでした');
+        }
+      } catch (e) {
+        showToast('通信エラーが発生しました');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '整理券を発行する';
+      }
+    }
+
+    function renderAdminUI(data) {
+      document.getElementById('adminSlotsVal').textContent = data.config.slots;
+      document.getElementById('adminDurationVal').textContent = data.config.duration;
+
+      const toggleBtn = document.getElementById('receptionToggleBtn');
+      if (data.config.receptionStatus === 'OPEN') {
+        toggleBtn.className = 'toggle-pill pill-open';
+        toggleBtn.textContent = '受付中（タップで終了）';
+      } else {
+        toggleBtn.className = 'toggle-pill pill-closed';
+        toggleBtn.textContent = '受付終了中（タップで再開）';
+      }
+
+      const activeList = data.activeList || [];
+      const waitingList = data.waitingList || [];
+      document.getElementById('activeCountBadge').textContent = activeList.length + '組';
+      document.getElementById('waitingCountBadge').textContent = waitingList.length + '組';
+
+      const activeContainer = document.getElementById('activeListContainer');
+      if (activeList.length === 0) {
+        activeContainer.innerHTML = '<p style="font-size:13px; color:var(--text-sub); padding:8px 0;">現在対応中の方はいません</p>';
+      } else {
+        activeContainer.innerHTML = activeList.map(function(item) {
+          return '<div class="queue-item is-active">' +
+            '<div><span class="queue-no">' + item.ticketNo + '</span><strong>' + escapeHtml(item.nickname) + '</strong><div style="font-size:11px; color:var(--text-sub);">開始 ' + item.startedAt + '</div></div>' +
+            '<div><button class="btn-sm btn-done" onclick="handleAdminStatus(\'' + item.ticketNo + '\', \'完了\')">施術完了</button></div>' +
+            '</div>';
+        }).join('');
+      }
+
+      const waitingContainer = document.getElementById('waitingListContainer');
+      if (waitingList.length === 0) {
+        waitingContainer.innerHTML = '<p style="font-size:13px; color:var(--text-sub); padding:8px 0;">待機中の方はいません</p>';
+      } else {
+        waitingContainer.innerHTML = waitingList.map(function(item) {
+          return '<div class="queue-item">' +
+            '<div><span class="queue-no">' + item.ticketNo + '</span><strong>' + escapeHtml(item.nickname) + '</strong><div style="font-size:11px; color:var(--text-sub);">発券 ' + item.issuedAt + '</div></div>' +
+            '<div>' +
+            '<button class="btn-sm btn-call" onclick="handleAdminStatus(\'' + item.ticketNo + '\', \'呼び出し中\')">呼出</button>' +
+            '<button class="btn-sm btn-cancel" onclick="handleAdminCancel(\'' + item.ticketNo + '\')">取消</button>' +
+            '</div></div>';
+        }).join('');
+      }
+    }
+
+    async function handleAdminStatus(ticketNo, newStatus) {
+      showToast('更新中...');
+      const res = await fetchGasPost({
+        action: 'updateStatus',
+        pin: verifiedPin,
+        ticketNo: ticketNo,
+        newStatus: newStatus
+      });
+      if (res.success) {
+        showToast(ticketNo + '番を「' + newStatus + '」にしました');
+        refreshStatus(false);
+      } else {
+        showToast(res.message || '更新エラー');
+      }
+    }
+
+    function handleAdminCancel(ticketNo) {
+      if (confirm('整理券 ' + ticketNo + ' 番をキャンセル（取消）にしますか？')) {
+        handleAdminStatus(ticketNo, 'キャンセル');
+      }
+    }
+
+    async function handleStepConfig(key, delta) {
+      let nextSlots = currentConfig.slots;
+      let nextDuration = currentConfig.duration;
+      if (key === 'slots') {
+        nextSlots = Math.max(1, Math.min(10, nextSlots + delta));
+      } else if (key === 'duration') {
+        nextDuration = Math.max(5, Math.min(60, nextDuration + delta));
+      }
+      const res = await fetchGasPost({
+        action: 'updateConfig',
+        pin: verifiedPin,
+        slots: nextSlots,
+        duration: nextDuration
+      });
+      if (res.success) {
+        showToast('設定を変更しました');
+        refreshStatus(false);
+      }
+    }
+
+    async function handleToggleReception() {
+      const nextStatus = currentConfig.receptionStatus === 'OPEN' ? 'CLOSED' : 'OPEN';
+      const label = nextStatus === 'OPEN' ? '受付中' : '受付終了';
+      if (!confirm('受付ステータスを「' + label + '」に切り替えますか？')) return;
+
+      const res = await fetchGasPost({
+        action: 'updateConfig',
+        pin: verifiedPin,
+        receptionStatus: nextStatus
+      });
+      if (res.success) {
+        showToast('「' + label + '」に切り替えました');
+        refreshStatus(false);
+      }
+    }
+
+    async function handleProxyIssue() {
+      const input = document.getElementById('proxyNicknameInput');
+      const nickname = input.value.trim();
+      if (!nickname) {
+        showToast('お客様のニックネームを入力してください');
+        return;
+      }
+      const res = await fetchGasPost({
+        action: 'issue',
+        nickname: nickname,
+        deviceId: 'proxy_' + Date.now()
+      });
+      if (res.success) {
+        input.value = '';
+        alert('【代理発券完了】\n整理券番号：' + res.ticketNo + ' 番\nお名前：' + res.nickname + ' 様\n※この番号をお客様にお伝えください。');
+        refreshStatus(false);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mode') === 'admin') {
+        switchToAdminLogin();
+      } else {
+        refreshStatus(false);
+      }
+      autoRefreshTimer = setInterval(function() {
+        refreshStatus(false);
+      }, 15000);
+    });
+    // === [新規機能追加エリアJS] 新しい処理はこの真上に貼り付け ===
+    // --- [ブロック10：発券・スタッフ操作アクションJS] ここまで ---
+  </script>
+</body>
+</html>
+<!-- === [PART 3 ここまで] === -->
