@@ -412,6 +412,117 @@
       transition: opacity 0.25s;
     }
     .toast-msg.show { opacity: 1; }
+/* --- [ブロック3.5：施術者紹介・学校リンクCSS] ここから --- */
+.practitioner-section {
+  margin-top: 20px;
+}
+
+.practitioner-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #ffffff;
+  border: 1px solid var(--border-line);
+  border-radius: 16px;
+  padding: 14px;
+  margin-bottom: 10px;
+}
+
+.practitioner-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  font-weight: 900;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.practitioner-role {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 2px;
+}
+
+.practitioner-name {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.practitioner-desc {
+  font-size: 12.5px;
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+
+.school-links-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 10px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  transition: transform 0.15s ease, opacity 0.2s;
+}
+
+.link-btn:active {
+  transform: scale(0.97);
+}
+
+.link-btn-hp {
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+  border: 1px solid var(--border-line);
+}
+
+.link-btn-ig {
+  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 55%, #8134af 100%);
+  color: #ffffff;
+}
+
+.staff-toggle-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.staff-chip-btn {
+  flex: 1;
+  padding: 10px 8px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid var(--border-line);
+  background: #ffffff;
+  color: var(--text-sub);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.staff-chip-btn.is-on {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary-dark);
+}
+/* --- [ブロック3.5：施術者紹介・学校リンクCSS] ここまで --- */
     /* === [新規機能追加エリアCSS] 新しいスタイルはこの真上に貼り付け === */
     /* --- [ブロック3：スタッフ管理画面・PIN認証CSS] ここまで --- */
   </style>
@@ -483,6 +594,43 @@
         </p>
       </section>
 
+        <!-- --- [ブロック5.5：施術者紹介・学校リンクHTML] ここから --- -->
+      <section class="card practitioner-section">
+        <div class="section-subtitle" style="margin-top:0;">
+          <span>本日の担当施術者</span>
+        </div>
+
+        <div id="cardStaffOshin" class="practitioner-card">
+          <div class="practitioner-avatar">中</div>
+          <div>
+            <div class="practitioner-role">鹿児島鍼灸専門学校 専任教員 / 鍼灸マッサージ師</div>
+            <div class="practitioner-name">中野 信盛（しんせい）</div>
+            <div class="practitioner-desc">国家資格（あん摩マッサージ指圧師・はり師・きゅう師）保有。お一人おひとりのお身体の状態に合わせて丁寧に施術いたします。</div>
+          </div>
+        </div>
+
+        <div id="cardStaffFather" class="practitioner-card">
+          <div class="practitioner-avatar">父</div>
+          <div>
+            <div class="practitioner-role">国家資格保有 施術師</div>
+            <div class="practitioner-name">中野（父）</div>
+            <div class="practitioner-desc">長年の臨床経験を活かした心地よい手技で、肩や腰の疲れをやさしくほぐします。（※金・土曜限定参加）</div>
+          </div>
+        </div>
+
+        <div class="section-subtitle" style="margin-top:18px;">
+          <span>学校案内・SNS</span>
+        </div>
+        <div class="school-links-grid">
+          <a href="https://www.kukita-shinkyu.jp/" target="_blank" rel="noopener noreferrer" class="link-btn link-btn-hp">
+            学校ホームページ
+          </a>
+          <a href="https://www.instagram.com/kagoshima_shinkyu?utm_source=ig_web_button_share_sheet&evlk=ZDNlZDc0MzIxNw==/" target="_blank" rel="noopener noreferrer" class="link-btn link-btn-ig">
+            公式Instagram
+          </a>
+        </div>
+      </section>
+      <!-- --- [ブロック5.5：施術者紹介・学校リンクHTML] ここまで --- -->
     </main>
     <!-- --- [ブロック5：お客様用画面HTML] ここまで --- -->
 <!-- === [PART 2 ここまで] この真下に PART 3 を貼り付け === -->
@@ -524,6 +672,14 @@
           </div>
         </div>
 
+          <div style="border-top:1px solid var(--border-line); padding-top:12px; margin-bottom:12px;">
+          <div class="wait-label" style="margin-bottom:6px;">本日の担当施術者（お客様画面の表示切替）</div>
+          <div class="staff-toggle-row">
+            <button id="btnToggleOshin" class="staff-chip-btn is-on" onclick="handleToggleStaff('oshin')">中野（しんせい）：参加</button>
+            <button id="btnToggleFather" class="staff-chip-btn is-on" onclick="handleToggleStaff('father')">中野（父）：参加</button>
+          </div>
+        </div>
+          
         <div style="border-top:1px solid var(--border-line); padding-top:14px; margin-top:6px;">
           <div class="wait-label" style="margin-bottom:6px;">代理発券（スマホをお持ちでないお客様用）</div>
           <div style="display:flex; gap:8px;">
