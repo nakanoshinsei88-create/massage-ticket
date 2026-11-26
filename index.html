@@ -1,4 +1,4 @@
-<!-- === [PART 2 ここから] GitHub用 index.html にそのまま貼り付け === -->
+<!-- === [PART 1 ここから] 新しい index.html の先頭に貼り付け === -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -412,130 +412,133 @@
       transition: opacity 0.25s;
     }
     .toast-msg.show { opacity: 1; }
-/* --- [ブロック3.5：施術者紹介・学校リンクCSS] ここから --- */
-.practitioner-section {
-  margin-top: 20px;
-}
 
-.practitioner-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: #ffffff;
-  border: 1px solid var(--border-line);
-  border-radius: 16px;
-  padding: 14px;
-  margin-bottom: 10px;
-}
+    /* --- [ブロック3.5：施術者紹介・学校リンクCSS] ここから --- */
+    .practitioner-section {
+      margin-top: 20px;
+    }
 
-.practitioner-avatar {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: var(--primary-soft);
-  color: var(--primary-dark);
-  font-weight: 900;
-  font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  overflow: hidden;
-  border: 2px solid var(--border-line);
-}
+    .practitioner-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #ffffff;
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
 
-.practitioner-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    .practitioner-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      font-weight: 900;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+      border: 2px solid var(--border-line);
+    }
 
-.practitioner-role {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 2px;
-}
+    .practitioner-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-.practitioner-name {
-  font-size: 15px;
-  font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 4px;
-}
+    .practitioner-role {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 2px;
+    }
 
-.practitioner-desc {
-  font-size: 12.5px;
-  color: var(--text-sub);
-  line-height: 1.5;
-}
+    .practitioner-name {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
 
-.school-links-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 12px;
-}
+    .practitioner-desc {
+      font-size: 12.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
 
-.link-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 12px 10px;
-  border-radius: 14px;
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: none;
-  text-align: center;
-  transition: transform 0.15s ease, opacity 0.2s;
-}
+    .school-links-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
 
-.link-btn:active {
-  transform: scale(0.97);
-}
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 10px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+      text-align: center;
+      transition: transform 0.15s ease, opacity 0.2s;
+    }
 
-.link-btn-hp {
-  background: var(--primary-soft);
-  color: var(--primary-dark);
-  border: 1px solid var(--border-line);
-}
+    .link-btn:active {
+      transform: scale(0.97);
+    }
 
-.link-btn-ig {
-  background: linear-gradient(135deg, #f58529 0%, #dd2a7b 55%, #8134af 100%);
-  color: #ffffff;
-}
+    .link-btn-hp {
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-line);
+    }
 
-.staff-toggle-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 14px;
-}
+    .link-btn-ig {
+      background: linear-gradient(135deg, #f58529 0%, #dd2a7b 55%, #8134af 100%);
+      color: #ffffff;
+    }
 
-.staff-chip-btn {
-  flex: 1;
-  padding: 10px 8px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 700;
-  border: 2px solid var(--border-line);
-  background: #ffffff;
-  color: var(--text-sub);
-  cursor: pointer;
-  transition: all 0.2s;
-}
+    .staff-toggle-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
 
-.staff-chip-btn.is-on {
-  border-color: var(--primary);
-  background: var(--primary-soft);
-  color: var(--primary-dark);
-}
-/* --- [ブロック3.5：施術者紹介・学校リンクCSS] ここまで --- */
+    .staff-chip-btn {
+      flex: 1;
+      padding: 10px 8px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      border: 2px solid var(--border-line);
+      background: #ffffff;
+      color: var(--text-sub);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .staff-chip-btn.is-on {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      color: var(--primary-dark);
+    }
+    /* --- [ブロック3.5：施術者紹介・学校リンクCSS] ここまで --- */
     /* === [新規機能追加エリアCSS] 新しいスタイルはこの真上に貼り付け === */
     /* --- [ブロック3：スタッフ管理画面・PIN認証CSS] ここまで --- */
   </style>
 </head>
+<!-- === [PART 1 ここまで] この真下に PART 2 を貼り付け === -->
+<!-- === [PART 2 ここから] PART 1 の真下に貼り付け === -->
 <body>
   <div class="app-container">
     <!-- --- [ブロック4：共通ヘッダーHTML] ここから --- -->
@@ -603,13 +606,13 @@
         </p>
       </section>
 
-        <!-- --- [ブロック5.5：施術者紹介・学校リンクHTML] ここから --- -->
+      <!-- --- [ブロック5.5：施術者紹介・学校リンクHTML] ここから --- -->
       <section class="card practitioner-section">
         <div class="section-subtitle" style="margin-top:0;">
           <span>本日の担当施術者</span>
         </div>
 
-<div id="cardStaffOshin" class="practitioner-card">
+        <div id="cardStaffOshin" class="practitioner-card">
           <div class="practitioner-avatar">
             <img src="assets/oshin.jpg" alt="中野 信盛" onerror="handleAvatarError(this, 'oshin', '中')">
           </div>
@@ -622,15 +625,13 @@
 
         <div id="cardStaffFather" class="practitioner-card">
           <div class="practitioner-avatar">
-            <img src="assets/father.jpg" alt="中野　諭" onerror="handleAvatarError(this, 'father', '父')">
+            <img src="assets/father.jpg" alt="中野 諭" onerror="handleAvatarError(this, 'father', '父')">
           </div>
           <div>
-            <div class="practitioner-role">中野鍼灸治療院　鍼灸マッサージ師</div>
-            <div class="practitioner-name">中野　諭</div>
+            <div class="practitioner-role">中野鍼灸治療院 鍼灸マッサージ師</div>
+            <div class="practitioner-name">中野 諭</div>
             <div class="practitioner-desc">長年の臨床経験を活かした心地よい手技で、肩や腰の疲れをやさしくほぐします。（※金・土曜限定参加）</div>
           </div>
-        </div>
-            
         </div>
 
         <div class="section-subtitle" style="margin-top:18px;">
@@ -648,8 +649,7 @@
       <!-- --- [ブロック5.5：施術者紹介・学校リンクHTML] ここまで --- -->
     </main>
     <!-- --- [ブロック5：お客様用画面HTML] ここまで --- -->
-<!-- === [PART 2 ここまで] この真下に PART 3 を貼り付け === -->
-      <!-- === [PART 3 ここから] PART 2 の真下に貼り付け === -->
+
     <!-- --- [ブロック6：スタッフPIN認証・管理画面HTML] ここから --- -->
     <main id="adminLoginView" class="hidden">
       <section class="card pin-box">
@@ -687,14 +687,14 @@
           </div>
         </div>
 
-          <div style="border-top:1px solid var(--border-line); padding-top:12px; margin-bottom:12px;">
+        <div style="border-top:1px solid var(--border-line); padding-top:12px; margin-bottom:12px;">
           <div class="wait-label" style="margin-bottom:6px;">本日の担当施術者（お客様画面の表示切替）</div>
           <div class="staff-toggle-row">
-            <button id="btnToggleOshin" class="staff-chip-btn is-on" onclick="handleToggleStaff('oshin')">中野（しんせい）：参加</button>
-            <button id="btnToggleFather" class="staff-chip-btn is-on" onclick="handleToggleStaff('father')">中野（父）：参加</button>
+            <button id="btnToggleOshin" class="staff-chip-btn is-on" onclick="handleToggleStaff('oshin')">中野 信盛：参加</button>
+            <button id="btnToggleFather" class="staff-chip-btn is-on" onclick="handleToggleStaff('father')">中野 諭：参加</button>
           </div>
         </div>
-          
+
         <div style="border-top:1px solid var(--border-line); padding-top:14px; margin-top:6px;">
           <div class="wait-label" style="margin-bottom:6px;">代理発券（スマホをお持ちでないお客様用）</div>
           <div style="display:flex; gap:8px;">
@@ -725,7 +725,8 @@
   </div>
 
   <div id="toastMsg" class="toast-msg"></div>
-
+<!-- === [PART 2 ここまで] この真下に PART 3 を貼り付け === -->
+<!-- === [PART 3 ここから] PART 2 の真下に貼り付け === -->
   <script>
     // --- [ブロック7：API設定・ブラウザ記憶管理JS] ここから ---
     const GAS_API_URL = 'https://script.google.com/macros/s/AKfycbwTuJ3_YlzS0GNsT4gQSZcrlqRv0OClHZfiEYCcaUVzjS5z4ii3fTcJcvo1Q79NZVFp/exec';
@@ -734,7 +735,7 @@
     const STORAGE_KEY_TICKET = 'massage_ticket_saved_no';
     const STORAGE_KEY_PIN = 'massage_ticket_admin_pin';
 
-    let currentConfig = { slots: 1, duration: 15, receptionStatus: 'OPEN' };
+    let currentConfig = { slots: 1, duration: 15, receptionStatus: 'OPEN', staffOshin: 'ON', staffFather: 'ON' };
     let isAdminAuthenticated = false;
     let verifiedPin = '';
     let autoRefreshTimer = null;
@@ -861,7 +862,7 @@
       }
     }
 
-function renderGuestUI(data) {
+    function renderGuestUI(data) {
       const issueSec = document.getElementById('issueSection');
       const ticketSec = document.getElementById('ticketSection');
 
@@ -869,14 +870,6 @@ function renderGuestUI(data) {
       const cardFather = document.getElementById('cardStaffFather');
       if (cardOshin) cardOshin.classList.toggle('hidden', data.config.staffOshin !== 'ON');
       if (cardFather) cardFather.classList.toggle('hidden', data.config.staffFather !== 'ON');
-
-      // ▼ この4行を追加 ▼
-      const cardOshin = document.getElementById('cardStaffOshin');
-      const cardFather = document.getElementById('cardStaffFather');
-      if (cardOshin) cardOshin.classList.toggle('hidden', data.config.staffOshin !== 'ON');
-      if (cardFather) cardFather.classList.toggle('hidden', data.config.staffFather !== 'ON');
-      // ▲ この4行を追加 ▲
-      const ticketSec = document.getElementById('ticketSection');
 
       if (data.myTicket) {
         localStorage.setItem(STORAGE_KEY_TICKET, data.myTicket.ticketNo);
@@ -963,7 +956,7 @@ function renderGuestUI(data) {
       }
     }
 
-function renderAdminUI(data) {
+    function renderAdminUI(data) {
       document.getElementById('adminSlotsVal').textContent = data.config.slots;
       document.getElementById('adminDurationVal').textContent = data.config.duration;
 
@@ -973,28 +966,12 @@ function renderAdminUI(data) {
       const isFatherOn = data.config.staffFather === 'ON';
       if (btnOshin) {
         btnOshin.className = 'staff-chip-btn' + (isOshinOn ? ' is-on' : '');
-        btnOshin.textContent = '中野　信盛：' + (isOshinOn ? '参加' : 'お休み');
+        btnOshin.textContent = '中野 信盛：' + (isOshinOn ? '参加' : 'お休み');
       }
       if (btnFather) {
         btnFather.className = 'staff-chip-btn' + (isFatherOn ? ' is-on' : '');
-        btnFather.textContent = '中野　諭：' + (isFatherOn ? '参加' : 'お休み');
+        btnFather.textContent = '中野 諭：' + (isFatherOn ? '参加' : 'お休み');
       }
-
-      // ▼ この下のブロックを追加 ▼
-      const btnOshin = document.getElementById('btnToggleOshin');
-      const btnFather = document.getElementById('btnToggleFather');
-      const isOshinOn = data.config.staffOshin === 'ON';
-      const isFatherOn = data.config.staffFather === 'ON';
-      if (btnOshin) {
-        btnOshin.className = 'staff-chip-btn' + (isOshinOn ? ' is-on' : '');
-        btnOshin.textContent = '中野　信盛：' + (isOshinOn ? '参加' : 'お休み');
-      }
-      if (btnFather) {
-        btnFather.className = 'staff-chip-btn' + (isFatherOn ? ' is-on' : '');
-        btnFather.textContent = '中野　諭：' + (isFatherOn ? '参加' : 'お休み');
-      }
-      // ▲ この上のブロックを追加 ▲
-      document.getElementById('adminDurationVal').textContent = data.config.duration;
 
       const toggleBtn = document.getElementById('receptionToggleBtn');
       if (data.config.receptionStatus === 'OPEN') {
@@ -1122,19 +1099,7 @@ function renderAdminUI(data) {
         .replace(/"/g, '&quot;');
     }
 
-    window.addEventListener('DOMContentLoaded', function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('mode') === 'admin') {
-        switchToAdminLogin();
-      } else {
-        refreshStatus(false);
-      }
-      autoRefreshTimer = setInterval(function() {
-        refreshStatus(false);
-      }, 15000);
-    });
-
-    // --- [ブロック10.5：担当スタッフON/OFF切替JS] ここから ---
+    // --- [ブロック10.5：担当スタッフON/OFF切替・写真自動探索JS] ここから ---
     async function handleToggleStaff(target) {
       let nextOshin = currentConfig.staffOshin || 'ON';
       let nextFather = currentConfig.staffFather || 'ON';
@@ -1154,12 +1119,14 @@ function renderAdminUI(data) {
         refreshStatus(false);
       }
     }
-    // --- [ブロック10.5：担当スタッフON/OFF切替JS] ここまで ---
-function handleAvatarError(imgEl, baseName, fallbackText) {
+
+    function handleAvatarError(imgEl, baseName, fallbackText) {
       const candidates = [
         'assets/' + baseName + '.png',
+        'assets/' + baseName + '.jpeg',
         baseName + '.jpg',
-        baseName + '.png'
+        baseName + '.png',
+        baseName + '.jpeg'
       ];
       const step = Number(imgEl.dataset.retryStep || 0);
       if (step < candidates.length) {
@@ -1170,9 +1137,23 @@ function handleAvatarError(imgEl, baseName, fallbackText) {
         imgEl.parentElement.textContent = fallbackText;
       }
     }
+    // --- [ブロック10.5：担当スタッフON/OFF切替・写真自動探索JS] ここまで ---
+
+    window.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('mode') === 'admin') {
+        switchToAdminLogin();
+      } else {
+        refreshStatus(false);
+      }
+      autoRefreshTimer = setInterval(function() {
+        refreshStatus(false);
+      }, 15000);
+    });
     // === [新規機能追加エリアJS] 新しい処理はこの真上に貼り付け ===
     // --- [ブロック10：発券・スタッフ操作アクションJS] ここまで ---
   </script>
 </body>
 </html>
 <!-- === [PART 3 ここまで] === -->
+    
