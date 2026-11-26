@@ -611,7 +611,7 @@
 
 <div id="cardStaffOshin" class="practitioner-card">
           <div class="practitioner-avatar">
-            <img src="assets/oshin.jpg" alt="中野 信盛" onerror="this.style.display='none'; this.parentElement.textContent='中';">
+            <img src="assets/oshin.jpg" alt="中野 信盛" onerror="handleAvatarError(this, 'oshin', '中')">
           </div>
           <div>
             <div class="practitioner-role">鹿児島鍼灸専門学校 専任教員 / 鍼灸マッサージ師</div>
@@ -622,15 +622,15 @@
 
         <div id="cardStaffFather" class="practitioner-card">
           <div class="practitioner-avatar">
-            <img src="assets/father.jpg" alt="中野（父）" onerror="this.style.display='none'; this.parentElement.textContent='父';">
+            <img src="assets/father.jpg" alt="中野　諭" onerror="handleAvatarError(this, 'father', '父')">
           </div>
           <div>
-            <div class="practitioner-role">国家資格保有 施術師</div>
-            <div class="practitioner-name">中野（父）</div>
+            <div class="practitioner-role">中野鍼灸治療院　鍼灸マッサージ師</div>
+            <div class="practitioner-name">中野　諭</div>
             <div class="practitioner-desc">長年の臨床経験を活かした心地よい手技で、肩や腰の疲れをやさしくほぐします。（※金・土曜限定参加）</div>
           </div>
-        </div>肩や腰の疲れをやさしくほぐします。（※金・土曜限定参加）</div>
-          </div>
+        </div>
+            
         </div>
 
         <div class="section-subtitle" style="margin-top:18px;">
@@ -861,11 +861,14 @@
       }
     }
 
-    function renderGuestUI(data) {
-      const issueSec = document.getElementById('issueSection');
-        function renderGuestUI(data) {
+function renderGuestUI(data) {
       const issueSec = document.getElementById('issueSection');
       const ticketSec = document.getElementById('ticketSection');
+
+      const cardOshin = document.getElementById('cardStaffOshin');
+      const cardFather = document.getElementById('cardStaffFather');
+      if (cardOshin) cardOshin.classList.toggle('hidden', data.config.staffOshin !== 'ON');
+      if (cardFather) cardFather.classList.toggle('hidden', data.config.staffFather !== 'ON');
 
       // ▼ この4行を追加 ▼
       const cardOshin = document.getElementById('cardStaffOshin');
@@ -960,11 +963,22 @@
       }
     }
 
-    function renderAdminUI(data) {
-      document.getElementById('adminSlotsVal').textContent = data.config.slots;
-        function renderAdminUI(data) {
+function renderAdminUI(data) {
       document.getElementById('adminSlotsVal').textContent = data.config.slots;
       document.getElementById('adminDurationVal').textContent = data.config.duration;
+
+      const btnOshin = document.getElementById('btnToggleOshin');
+      const btnFather = document.getElementById('btnToggleFather');
+      const isOshinOn = data.config.staffOshin === 'ON';
+      const isFatherOn = data.config.staffFather === 'ON';
+      if (btnOshin) {
+        btnOshin.className = 'staff-chip-btn' + (isOshinOn ? ' is-on' : '');
+        btnOshin.textContent = '中野　信盛：' + (isOshinOn ? '参加' : 'お休み');
+      }
+      if (btnFather) {
+        btnFather.className = 'staff-chip-btn' + (isFatherOn ? ' is-on' : '');
+        btnFather.textContent = '中野　諭：' + (isFatherOn ? '参加' : 'お休み');
+      }
 
       // ▼ この下のブロックを追加 ▼
       const btnOshin = document.getElementById('btnToggleOshin');
@@ -973,11 +987,11 @@
       const isFatherOn = data.config.staffFather === 'ON';
       if (btnOshin) {
         btnOshin.className = 'staff-chip-btn' + (isOshinOn ? ' is-on' : '');
-        btnOshin.textContent = '中野（しんせい）：' + (isOshinOn ? '参加' : 'お休み');
+        btnOshin.textContent = '中野　信盛：' + (isOshinOn ? '参加' : 'お休み');
       }
       if (btnFather) {
         btnFather.className = 'staff-chip-btn' + (isFatherOn ? ' is-on' : '');
-        btnFather.textContent = '中野（父）：' + (isFatherOn ? '参加' : 'お休み');
+        btnFather.textContent = '中野　諭：' + (isFatherOn ? '参加' : 'お休み');
       }
       // ▲ この上のブロックを追加 ▲
       document.getElementById('adminDurationVal').textContent = data.config.duration;
@@ -1141,6 +1155,21 @@
       }
     }
     // --- [ブロック10.5：担当スタッフON/OFF切替JS] ここまで ---
+function handleAvatarError(imgEl, baseName, fallbackText) {
+      const candidates = [
+        'assets/' + baseName + '.png',
+        baseName + '.jpg',
+        baseName + '.png'
+      ];
+      const step = Number(imgEl.dataset.retryStep || 0);
+      if (step < candidates.length) {
+        imgEl.dataset.retryStep = String(step + 1);
+        imgEl.src = candidates.at(step);
+      } else {
+        imgEl.style.display = 'none';
+        imgEl.parentElement.textContent = fallbackText;
+      }
+    }
     // === [新規機能追加エリアJS] 新しい処理はこの真上に貼り付け ===
     // --- [ブロック10：発券・スタッフ操作アクションJS] ここまで ---
   </script>
